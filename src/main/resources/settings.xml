@@ -1,0 +1,13 @@
+<Configuration>
+    <Root>
+        <Key Name="PP">
+            <BIS>
+                <Key Name="System">
+                    <Session KeyIncr="0" Statable="Yes" />
+                    <StateServer Host= "127.0.0.1" Port="6379" Type="Redis" />
+<!--                    <StateServer Host= "localhost"  Port="6379" Type="Redis" />-->
+                </Key>
+            </BIS>
+        </Key>
+    </Root>
+</Configuration>
