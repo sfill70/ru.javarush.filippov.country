@@ -1,6 +1,7 @@
 package ru.javarush.country.entity;
 
 import jakarta.persistence.*;
+//import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.util.Set;
@@ -59,6 +60,7 @@ public class Country {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "capital")
+//    @NotNull
     private City capital;
 
     @OneToMany(fetch = FetchType.EAGER)

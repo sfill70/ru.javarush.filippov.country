@@ -40,6 +40,7 @@ public class CityHandler {
     public static void main(String[] args) {
         CityHandler cityHandler = new CityHandler();
         System.out.println(cityHandler.getRandomCity().getName());
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         for (City city : cityHandler.getRandomCitySet(2, 18)
         ) {
