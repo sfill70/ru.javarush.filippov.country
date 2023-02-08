@@ -6,7 +6,6 @@ import ru.javarush.country.dao.CityDao;
 import ru.javarush.country.entity.City;
 import ru.javarush.country.factory.MySessionFactory;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public class CityHandler {
@@ -27,11 +26,11 @@ public class CityHandler {
         }
     }
 
-    public Set<City>getRandomCitySet(int offset, int count){
-        Set<City> citySet = new HashSet<>();
+    public Set<City> getRandomCitySet(int offset, int count) {
+        Set<City> citySet;
         try (Session session = sessionFactory.getCurrentSession()) {
             session.beginTransaction();
-           citySet = cityDao.getItemsRandom(offset,count);
+            citySet = cityDao.getItemsRandom(offset, count);
             session.getTransaction().commit();
         }
         return citySet;
@@ -42,8 +41,8 @@ public class CityHandler {
         CityHandler cityHandler = new CityHandler();
         System.out.println(cityHandler.getRandomCity().getName());
 
-        for (City city:cityHandler.getRandomCitySet(2,18)
-             ) {
+        for (City city : cityHandler.getRandomCitySet(2, 18)
+        ) {
             System.out.println(city.getName());
         }
     }
