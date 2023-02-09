@@ -7,8 +7,6 @@ import ru.javarush.country.util.Util;
 
 import java.util.List;
 
-import static java.util.Objects.nonNull;
-
 public class Main {
 
     private final CityHandler cityHandler;
@@ -21,10 +19,10 @@ public class Main {
 
     public static void main(String[] args) {
         Main main = new Main();
-        List<City> allCities = main.getAllCities();
-        main.pushToRedis(allCities);
+       /* List<City> allCities = main.getAllCities();
+        main.pushToRedis(allCities);*/
 
-        List<Integer> ids = Util.getRandomIntList(main.grtCountCity(), 800);
+        List<Integer> ids = Util.getRandomIntList(main.getCountCity() - 1, 800);
         System.out.println(ids.size());
 
         long startRedis = System.currentTimeMillis();
@@ -42,23 +40,23 @@ public class Main {
 
     }
 
-    private List<City> getAllCities(){
+    private List<City> getAllCities() {
         return cityHandler.fetchData();
     }
 
-    private void pushToRedis(List<City> cityList){
+    private void pushToRedis(List<City> cityList) {
         redisHandler.pushToRedis(cityList);
     }
 
-    private void testMysqlData (List<Integer> ids){
+    private void testMysqlData(List<Integer> ids) {
         cityHandler.testMysqlData(ids);
     }
 
-    private void testRedisData(List<Integer> ids){
+    private void testRedisData(List<Integer> ids) {
         redisHandler.testRedisData(ids);
     }
 
-    private int grtCountCity(){
+    private int getCountCity() {
         return cityHandler.getCountCity();
     }
 
