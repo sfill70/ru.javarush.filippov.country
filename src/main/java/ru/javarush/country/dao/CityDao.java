@@ -8,4 +8,6 @@ public class CityDao extends GenericDao<City>{
     public CityDao(SessionFactory sessionFactory) {
         super(City.class, sessionFactory);
     }
+
+
 }

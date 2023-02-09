@@ -38,6 +38,7 @@ public abstract class GenericDao<T> {
         return query.getResultList();
     }
 
+
     public Set<T> getItemsRandom(int offset, int count) {
         Query query = getCurrentSession().createQuery("from " + clazz.getName(), clazz);
         List<T> listEntity = query.getResultList();
@@ -55,6 +56,11 @@ public abstract class GenericDao<T> {
         }
         T entity = (T) getById(ThreadLocalRandom.current().nextInt(count));
         return entity;
+    }
+
+    public int getTotalCount(){
+        Query<Long> query = getCurrentSession().createQuery("select count (*) from " + clazz.getName(), Long.class);
+       return query.uniqueResult().intValue();
     }
 
     public List<T> findAll() {

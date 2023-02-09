@@ -8,4 +8,6 @@ public class CountryLanguageDao extends GenericDao<CountryLanguage> {
     public CountryLanguageDao(SessionFactory sessionFactory) {
         super(CountryLanguage.class, sessionFactory);
     }
+
+
 }
