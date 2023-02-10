@@ -16,7 +16,7 @@ public class Util {
     public static List<Integer> getRandomIntList(int interval, int light) {
         Set<Integer> intSet = new HashSet<>();
         for (int i = 0; i < light; i++) {
-            if (!intSet.add(ThreadLocalRandom.current().nextInt(0, interval))) {
+            if (!intSet.add(ThreadLocalRandom.current().nextInt(1, interval))) {
                 light++;
             }
         }

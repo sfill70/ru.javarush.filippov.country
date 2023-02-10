@@ -23,7 +23,7 @@ public class Main {
         main.pushToRedis(allCities);*/
 
         List<Integer> ids = Util.getRandomIntList(main.getCountCity() - 1, 800);
-        System.out.println(ids.size());
+
 
         long startRedis = System.currentTimeMillis();
         main.testRedisData(ids);
@@ -32,6 +32,8 @@ public class Main {
         long startMysql = System.currentTimeMillis();
         main.testMysqlData(ids);
         long stopMysql = System.currentTimeMillis();
+
+//        System.out.println(ids.size());
 
         System.out.printf("%s:\t%d ms\n", "Redis", (stopRedis - startRedis));
         System.out.printf("%s:\t%d ms\n", "MySQL", (stopMysql - startMysql));
