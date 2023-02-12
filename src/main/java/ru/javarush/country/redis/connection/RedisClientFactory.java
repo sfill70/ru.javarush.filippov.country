@@ -3,16 +3,16 @@ package ru.javarush.country.redis.connection;
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.StatefulRedisConnection;
-import org.hibernate.SessionFactory;
-import ru.javarush.country.factory.MySessionFactory;
+
 
 public class RedisClientFactory {
     private final RedisClient redisClient;
-
+    private final Connection connection;
     private static RedisClientFactory instance;
 
     private RedisClientFactory() {
-        redisClient = prepareRedisClient();
+        this.connection = new Connection();
+        this.redisClient = prepareRedisClient();
     }
 
     public static RedisClient getRedisClient() {
@@ -24,7 +24,9 @@ public class RedisClientFactory {
 
     @SuppressWarnings("unused")
     public io.lettuce.core.RedisClient prepareRedisClient() {
-        io.lettuce.core.RedisClient redisClient = io.lettuce.core.RedisClient.create(RedisURI.create("localhost", 8001));
+        RedisClient redisClient = io.lettuce.core.RedisClient.create(RedisURI.create(connection.getConnectionHost(), connection.getConnectionPort()));
+//        RedisClient redisClient = io.lettuce.core.RedisClient.create(RedisURI.create("127.0.0.1", 8001));
+
         try (StatefulRedisConnection<String, String> connection = redisClient.connect()) {
             System.out.println("\nConnected to Redis\n");
         }

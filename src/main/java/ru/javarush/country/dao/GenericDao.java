@@ -54,7 +54,7 @@ public abstract class GenericDao<T> {
             Query<Long> query = getCurrentSession().createQuery("select count (*) from " + clazz.getName(), Long.class);
             count = query.uniqueResult().intValue();
         }
-        T entity = (T) getById(ThreadLocalRandom.current().nextInt(count));
+        T entity = (T) getById(ThreadLocalRandom.current().nextInt(1, count));
         return entity;
     }
 
