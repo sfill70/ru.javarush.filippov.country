@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
+import ru.javarush.country.exception.ConnectionRedisException;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +16,7 @@ public class Connection {
     private final File yamlSetting = new File(classLoader.getResource("settingsRedis.yaml").getFile());
 
     public Connection() {
-        ConnectionSetting connectionSettingLoading;
+        ConnectionSetting connectionSettingLoading = null;
         ObjectMapper mapperXlm = new XmlMapper();
         mapperXlm.enable(SerializationFeature.INDENT_OUTPUT);
         try {
@@ -27,7 +28,7 @@ public class Connection {
             try {
                 connectionSettingLoading = mapperYaml.readValue(yamlSetting, ConnectionSetting.class);
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                new ConnectionRedisException(ex.getMessage());
             }
         }
         this.connectionSetting = connectionSettingLoading;

@@ -3,6 +3,7 @@ package ru.javarush.country.redis.connection;
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.StatefulRedisConnection;
+import ru.javarush.country.exception.RedisClientException;
 
 
 public class RedisClientFactory {
@@ -32,6 +33,8 @@ public class RedisClientFactory {
 
         try (StatefulRedisConnection<String, String> connection = redisClient.connect()) {
             System.out.println("\nConnected to Redis\n");
+        }catch (Exception e){
+            new RedisClientException(e.getMessage());
         }
         return redisClient;
     }
