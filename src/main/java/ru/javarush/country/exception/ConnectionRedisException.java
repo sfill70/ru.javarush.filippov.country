@@ -11,12 +11,14 @@ public class ConnectionRedisException extends IOException {
         super(message);
     }
 
+
     public ConnectionRedisException(String additionalMessage) {
         super(message);
         this.additionalMessage = additionalMessage;
     }
 
-    public String getAdditionalMessage() {
+    @Override
+    public String getMessage() {
         return message + additionalMessage;
     }
 }
