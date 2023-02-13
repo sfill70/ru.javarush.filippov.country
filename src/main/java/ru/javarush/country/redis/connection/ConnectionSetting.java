@@ -6,13 +6,15 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 public class ConnectionSetting {
     String host;
     int port;
+    int numberdb;
 
     public ConnectionSetting() {
     }
 
-    public ConnectionSetting(String host, int port) {
+    public ConnectionSetting(String host, int port, int numberdb) {
         this.host = host;
         this.port = port;
+        this.numberdb = numberdb;
     }
 
     public void setHost(String host) {
@@ -31,11 +33,20 @@ public class ConnectionSetting {
         return port;
     }
 
+    public int getNumberdb() {
+        return numberdb;
+    }
+
+    public void setNumberdb(int numberdb) {
+        this.numberdb = numberdb;
+    }
+
     @Override
     public String toString() {
         return "ConnectionSetting{" +
                 "host='" + host + '\'' +
-                ", port='" + port + '\'' +
+                ", port=" + port +
+                ", numberDb=" + numberdb +
                 '}';
     }
 }

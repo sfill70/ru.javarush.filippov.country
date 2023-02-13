@@ -1,6 +1,12 @@
 Before starting the program, match the database connection settings.
 For MySql file - hibernate.cfg.xml
-For Redis in File - settingsRedis.xml
+now - localhost:3310
+
+For Redis in File - settingsRedis.xml and duplicated settingRedis.yaml
+now
+host - 127.0.0.1
+port - 8001
+number DataBase - 0 (default)
 
 results (DataBase run in docker containers)
 

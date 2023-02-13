@@ -20,7 +20,7 @@ public class Main {
     public static void main(String[] args) {
         Main main = new Main();
 
-        /*List<City> allCities = main.getAllCities();
+       /* List<City> allCities = main.getAllCities();
         main.pushToRedis(allCities);*/
 
         List<Integer> ids = Util.getRandomIntList(main.getCountCity() - 1, 800);

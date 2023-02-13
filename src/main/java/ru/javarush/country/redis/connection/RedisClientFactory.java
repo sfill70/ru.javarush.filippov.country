@@ -8,10 +8,13 @@ import io.lettuce.core.api.StatefulRedisConnection;
 public class RedisClientFactory {
     private final RedisClient redisClient;
     private final Connection connection;
+    private final String redisURI;
     private static RedisClientFactory instance;
 
     private RedisClientFactory() {
         this.connection = new Connection();
+        this.redisURI = getRedisURI(connection.getConnectionHost(), connection.getConnectionPort(),
+                connection.getNumberDb());
         this.redisClient = prepareRedisClient();
     }
 
@@ -23,13 +26,18 @@ public class RedisClientFactory {
     }
 
     @SuppressWarnings("unused")
-    public io.lettuce.core.RedisClient prepareRedisClient() {
-        RedisClient redisClient = io.lettuce.core.RedisClient.create(RedisURI.create(connection.getConnectionHost(), connection.getConnectionPort()));
-//        RedisClient redisClient = io.lettuce.core.RedisClient.create(RedisURI.create("127.0.0.1", 8001));
+    public RedisClient prepareRedisClient() {
+//        RedisClient redisClient = RedisClient.create(RedisURI.create(connection.getConnectionHost(), connection.getConnectionPort()));
+        RedisClient redisClient = RedisClient.create(redisURI);
 
         try (StatefulRedisConnection<String, String> connection = redisClient.connect()) {
             System.out.println("\nConnected to Redis\n");
         }
         return redisClient;
+    }
+
+    public String getRedisURI(String host, int port, int numberdb) {
+        return "redis://" + connection.getConnectionHost()
+                + ":" + connection.getConnectionPort() + "/" + connection.getNumberDb();
     }
 }

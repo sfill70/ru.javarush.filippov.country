@@ -1,3 +1,4 @@
 --- !<ru.javarush.country.redis.connection.ConnectionSetting>
 host: "127.0.0.1"
 port: 8001
+numberdb: 0

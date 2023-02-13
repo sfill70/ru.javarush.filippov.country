@@ -40,4 +40,8 @@ public class Connection {
     public int getConnectionPort() {
         return connectionSetting.getPort();
     }
+
+    public int getNumberDb(){
+        return connectionSetting.getNumberdb();
+    }
 }
