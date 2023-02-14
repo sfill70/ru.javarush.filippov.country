@@ -1,6 +1,7 @@
 package ru.javarush.country.redis.connection;
 
 import io.lettuce.core.RedisClient;
+import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.StatefulRedisConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,17 +30,20 @@ public class RedisClientFactory {
     }
 
     @SuppressWarnings("unused")
-    public RedisClient prepareRedisClient() {
-//        RedisClient redisClient = RedisClient.create(RedisURI.create(connection.getConnectionHost(), connection.getConnectionPort()));
-        RedisClient redisClient = RedisClient.create(redisURI);
+    public RedisClient prepareRedisClient() {RedisClient redisClient = RedisClient.create(redisURI);
 
         try (StatefulRedisConnection<String, String> connection = redisClient.connect()) {
-            System.out.println("\nConnected to Redis\n");
             logger.info("\nConnected to Redis\n");
+//            int x = 1/0;
         } catch (Exception e) {
             logger.error("Failed to connect to database - " + e.getMessage());
+            redisClient = RedisClient.create(RedisURI.create(connection.getConnectionHost(), connection.getConnectionPort()));
+            try (StatefulRedisConnection<String, String> connection = redisClient.connect()) {
+                logger.info("\nConnected to Redis\n");
+            }catch (Exception ex){
+                logger.error("Failed to connect to database - " + e.getMessage());
+            }
         }
-
         return redisClient;
     }
 

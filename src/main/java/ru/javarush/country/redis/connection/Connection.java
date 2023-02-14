@@ -17,6 +17,8 @@ public class Connection {
     private final File xmlSetting = new File(classLoader.getResource("settingsRedis.xml").getFile());
     private final File yamlSetting = new File(classLoader.getResource("settingsRedis.yaml").getFile());
 
+    /*experiment connecting to the database by reading the settings from .xml or .yaml file
+    * left both options*/
     public Connection() {
         ConnectionSetting connectionSettingLoading = null;
         ObjectMapper mapperXlm = new XmlMapper();
