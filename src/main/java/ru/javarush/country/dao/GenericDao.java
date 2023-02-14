@@ -25,9 +25,6 @@ public abstract class GenericDao<T> {
 
     public T getById(final int id) {
          return (T) getCurrentSession().get(clazz, id);
-       /* Query<T> query = getCurrentSession().createQuery("select e from " + clazz.getName() + " e where e.id=" + id, clazz);
-        T entity = query.uniqueResult();
-        return entity;*/
     }
 
 

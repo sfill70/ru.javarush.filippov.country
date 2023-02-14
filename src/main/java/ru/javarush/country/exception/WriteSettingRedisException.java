@@ -1,14 +1,18 @@
 package ru.javarush.country.exception;
 
-public class RedisClientException extends Exception {
-    String additionalMessage;
-    private static final String message = "Failed to connect to Redis database, please check your connection settings. ";
+import java.io.IOException;
 
-    public RedisClientException() {
+public class WriteSettingRedisException extends IOException {
+    String additionalMessage;
+
+    private static final String message = "Failed to read settings file. ";
+
+    public WriteSettingRedisException() {
         super(message);
     }
 
-    public RedisClientException(String additionalMessage) {
+
+    public WriteSettingRedisException(String additionalMessage) {
         super(message);
         this.additionalMessage = additionalMessage;
     }

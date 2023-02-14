@@ -8,7 +8,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Util {
     final static String alphabet = "abcdefghijklmnopqrstuvwxyz";
-    final static String[] endings = {"@gmail.com", "@amazon.com", "@rambler.ru", "@yandex.ru"};
 
     public Util() {
     }
@@ -29,33 +28,18 @@ public class Util {
 
         if (upCase) {
             randomString = new StringBuilder(randomString.toString().toUpperCase());
+            lenght--;
         }
 
-        for (int i = 0; i < lenght; i++) {
+        for (int i = 0; i <= lenght; i++) {
             randomString.append(alphabet.charAt(ThreadLocalRandom.current().nextInt(0, 26)));
         }
         return randomString.toString();
     }
 
-    public static String randomEmail() {
-        return randomString(ThreadLocalRandom.current().nextInt(5, 10), false)
-                + endings[ThreadLocalRandom.current().nextInt(0, 4)];
-    }
-
-    public static String randomAddress() {
-        return ThreadLocalRandom.current().nextInt(1, 200) + " "
-                + randomString(ThreadLocalRandom.current().nextInt(5, 9), true);
-    }
-
-    public static String randomCity() {
+     public static String randomCity() {
         return "" + randomString(ThreadLocalRandom.current().nextInt(4, 9), true);
     }
 
 
-    public static void main(String[] args) {
-        for (int i = 0; i < 1000; i++) {
-            System.out.println(endings[ThreadLocalRandom.current().nextInt(0, 4)]);
-            System.out.println(("" + alphabet.charAt(ThreadLocalRandom.current().nextInt(0, 26))).toUpperCase());
-        }
-    }
 }

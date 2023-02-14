@@ -23,13 +23,10 @@ public class CityHandler {
 
     private final CountryDao countryDao;
 
-    private final RedisHandler redisHandler;
-
     public CityHandler() {
         sessionFactory = MySessionFactory.getSessionFactory();
         cityDao = new CityDao(sessionFactory);
         countryDao = new CountryDao(sessionFactory);
-        redisHandler = new RedisHandler();
     }
 
     public List<City> fetchData() {
@@ -68,35 +65,10 @@ public class CityHandler {
         }
     }
 
-    public City getRandomCity() {
-        try (Session session = sessionFactory.getCurrentSession()) {
-            session.beginTransaction();
-            City city = cityDao.getRandomItem();
-            session.getTransaction().commit();
-            return city;
-        }
-    }
-
-    public void pushToRedis(List<City> cityList) {
-        redisHandler.pushToRedis(cityList);
-    }
-
     public void shutdown() {
         if (nonNull(sessionFactory)) {
             sessionFactory.close();
         }
-    }
-
-    public static void main(String[] args) {
-        CityHandler cityHandler = new CityHandler();
-        List<City> cityList = cityHandler.fetchData();
-        for (City city : cityList
-        ) {
-            System.out.println(city.getName());
-        }
-        System.out.println(cityList.size());
-        cityHandler.pushToRedis(cityList);
-
     }
 
 }

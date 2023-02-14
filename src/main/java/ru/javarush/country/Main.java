@@ -34,8 +34,6 @@ public class Main {
         main.testMysqlData(ids);
         long stopMysql = System.currentTimeMillis();
 
-//        System.out.println(ids.size());
-
         System.out.printf("%s:\t%d ms\n", "Redis", (stopRedis - startRedis));
         System.out.printf("%s:\t%d ms\n", "MySQL", (stopMysql - startMysql));
 

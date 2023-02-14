@@ -1,9 +1,9 @@
 package ru.javarush.country.redis.connection;
 
 import io.lettuce.core.RedisClient;
-import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.StatefulRedisConnection;
-import ru.javarush.country.exception.RedisClientException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class RedisClientFactory {
@@ -11,6 +11,8 @@ public class RedisClientFactory {
     private final Connection connection;
     private final String redisURI;
     private static RedisClientFactory instance;
+
+    private static final Logger logger = LoggerFactory.getLogger(RedisClientFactory.class);
 
     private RedisClientFactory() {
         this.connection = new Connection();
@@ -33,9 +35,11 @@ public class RedisClientFactory {
 
         try (StatefulRedisConnection<String, String> connection = redisClient.connect()) {
             System.out.println("\nConnected to Redis\n");
-        }catch (Exception e){
-            new RedisClientException(e.getMessage());
+            logger.info("\nConnected to Redis\n");
+        } catch (Exception e) {
+            logger.error("Failed to connect to database - " + e.getMessage());
         }
+
         return redisClient;
     }
 

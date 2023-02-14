@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
-import ru.javarush.country.exception.ConnectionRedisException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.io.IOException;
 public class Connection {
     private final ConnectionSetting connectionSetting;
     private final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+    private static final Logger logger = LoggerFactory.getLogger(Connection.class);
     private final File xmlSetting = new File(classLoader.getResource("settingsRedis.xml").getFile());
     private final File yamlSetting = new File(classLoader.getResource("settingsRedis.yaml").getFile());
 
@@ -21,16 +23,17 @@ public class Connection {
         mapperXlm.enable(SerializationFeature.INDENT_OUTPUT);
         try {
             connectionSettingLoading = mapperXlm.readValue(xmlSetting, ConnectionSetting.class);
-//            int x = 1/0;
         } catch (IOException e) {
             ObjectMapper mapperYaml = new YAMLMapper();
             mapperYaml.enable(SerializationFeature.INDENT_OUTPUT);
             try {
                 connectionSettingLoading = mapperYaml.readValue(yamlSetting, ConnectionSetting.class);
             } catch (IOException ex) {
-                new ConnectionRedisException(ex.getMessage());
+                logger.error("Failed to read settings file. " + ex.toString());
             }
         }
+        assert connectionSettingLoading != null;
+        logger.info("Setup File Data Redis - "+connectionSettingLoading.toString());
         this.connectionSetting = connectionSettingLoading;
     }
 
