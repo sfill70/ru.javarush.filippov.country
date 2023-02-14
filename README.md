@@ -19,7 +19,7 @@ AMD  5900HS RAM 32 Win 11
 Redis:	 497 ms
 MySQL:	1251 ms
 
-AMD FX 3520 RAM 16 Ubuntu 22.04 ssd(SATA6)
+AMD FX 3520 RAM(DDR3) 16 Ubuntu 22.04 ssd(SATA6)
 Redis:	 794 ms
 MySQL:	2259 ms
 
@@ -33,3 +33,8 @@ connection to local database servers without using Docker
 Intel 8530U RAM 32 Gb Ubuntu 22.04
 Redis:	 319 ms
 MySQL:	1329 ms
+
+Redis reading speed depends on speed RAM
+
+MySql reading speed depends on speed SSD(HDD)
+
