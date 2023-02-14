@@ -1,7 +1,6 @@
 package ru.javarush.country.entity;
 
 import jakarta.persistence.*;
-//import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.Type;
 
 import java.math.BigDecimal;
@@ -17,7 +16,6 @@ public class CountryLanguage {
 
     @ManyToOne
     @JoinColumn(name = "country_id")
-//    @NotNull
     private Country country;
 
     @Column(name = "language", nullable = false, length = 30)

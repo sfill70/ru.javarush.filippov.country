@@ -1,7 +1,7 @@
 package ru.javarush.country.entity;
 
-import jakarta.persistence.*;
-//import javax.validation.constraints.NotNull;
+
+import jakarta.persistence.*;;
 
 @Entity
 @Table(schema = "world", name = "city")
@@ -17,7 +17,6 @@ public class City {
 
     @ManyToOne
     @JoinColumn(name = "country_id")
-//    @NotNull
     private Country country;
 
     @Column(name = "district", length = 20, nullable = false)
