@@ -35,12 +35,12 @@ public class RedisClientFactory {
         try (StatefulRedisConnection<String, String> connection = redisClient.connect()) {
             logger.info("\nConnected to Redis\n");
         } catch (Exception e) {
-            logger.error("Failed to connect to database - " + e.getMessage());
+            logger.error("\nFailed to connect to database Redis- " + e.getMessage() + "\n");
             redisClient = RedisClient.create(RedisURI.create(connectionSetting.getHost(), connectionSetting.getPort()));
             try (StatefulRedisConnection<String, String> connection = redisClient.connect()) {
                 logger.info("\nConnected to Redis\n");
             }catch (Exception ex){
-                logger.error("Failed to connect to database - " + e.getMessage());
+                logger.error("Failed to connect to database Redis- " + e.getMessage());
             }
         }
         return redisClient;

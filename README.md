@@ -1,14 +1,13 @@
 Before starting the program, match the database connection settings.
-For MySql file - hibernate.cfg.xml
-now -
+For MySql file - hibernate.properties
+now:
 connection.url - localhost:3310
 connection.username - root
 connection.password - pass
 
 
-For Redis in File - settingsRedis.xml and duplicated settingRedis.yaml
-settingsRedis.xml editing with your own settings is mandatory, but it is better to edit both files.
-now
+For Redis in File - settingRedis.yaml
+now:
 host - 127.0.0.1
 port - 8001
 number DataBase - 0 (default)
