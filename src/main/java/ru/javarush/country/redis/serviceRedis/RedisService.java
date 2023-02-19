@@ -1,4 +1,4 @@
-package ru.javarush.country.redis.handlerRedis;
+package ru.javarush.country.redis.serviceRedis;
 
 import ru.javarush.country.entity.City;
 import ru.javarush.country.redis.mapper.CityCountryMapper;
@@ -6,11 +6,11 @@ import ru.javarush.country.redis.redisDao.RedisDao;
 
 import java.util.List;
 
-public class RedisHandler {
+public class RedisService {
     private final CityCountryMapper cityCountryMapper;
     private final RedisDao redisDao;
 
-    public RedisHandler() {
+    public RedisService() {
         cityCountryMapper = new CityCountryMapper();
         redisDao = new RedisDao();
     }

@@ -1,20 +1,20 @@
 package ru.javarush.country;
 
 import ru.javarush.country.entity.City;
-import ru.javarush.country.handler.CityHandler;
-import ru.javarush.country.redis.handlerRedis.RedisHandler;
+import ru.javarush.country.service.CityService;
+import ru.javarush.country.redis.serviceRedis.RedisService;
 import ru.javarush.country.util.Util;
 
 import java.util.List;
 
 public class Main {
 
-    private final CityHandler cityHandler;
-    private final RedisHandler redisHandler;
+    private final CityService cityService;
+    private final RedisService redisService;
 
     public Main() {
-        cityHandler = new CityHandler();
-        redisHandler = new RedisHandler();
+        cityService = new CityService();
+        redisService = new RedisService();
     }
 
     public static void main(String[] args) {
@@ -42,27 +42,27 @@ public class Main {
     }
 
     private List<City> getAllCities() {
-        return cityHandler.fetchData();
+        return cityService.fetchData();
     }
 
     private void pushToRedis(List<City> cityList) {
-        redisHandler.pushToRedis(cityList);
+        redisService.pushToRedis(cityList);
     }
 
     private void testMysqlData(List<Integer> ids) {
-        cityHandler.testMysqlData(ids);
+        cityService.testMysqlData(ids);
     }
 
     private void testRedisData(List<Integer> ids) {
-        redisHandler.testRedisData(ids);
+        redisService.testRedisData(ids);
     }
 
     private int getCountCity() {
-        return cityHandler.getCountCity();
+        return cityService.getCountCity();
     }
 
     private void shutdown() {
-        cityHandler.shutdown();
-        redisHandler.shutdown();
+        cityService.shutdown();
+        redisService.shutdown();
     }
 }

@@ -1,9 +1,8 @@
-package ru.javarush.country.handler;
+package ru.javarush.country.service;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import ru.javarush.country.dao.CountryLanguageDao;
-import ru.javarush.country.entity.Country;
 import ru.javarush.country.entity.CountryLanguage;
 import ru.javarush.country.factory.MySessionFactory;
 
@@ -11,11 +10,11 @@ import java.util.List;
 
 import static java.util.Objects.nonNull;
 
-public class CountryLanguageHandler {
+public class CountryLanguageService {
     private final SessionFactory sessionFactory;
     private final CountryLanguageDao countryLanguageDao;
 
-    public CountryLanguageHandler() {
+    public CountryLanguageService() {
         sessionFactory = MySessionFactory.getSessionFactory();
         countryLanguageDao = new CountryLanguageDao(sessionFactory);
     }
@@ -47,9 +46,9 @@ public class CountryLanguageHandler {
     }
 
     public static void main(String[] args) {
-        CountryLanguageHandler countryLanguageHandler = new CountryLanguageHandler();
+        CountryLanguageService countryLanguageService = new CountryLanguageService();
 
-        CountryLanguage countryLanguage = countryLanguageHandler.getRandomItem();
+        CountryLanguage countryLanguage = countryLanguageService.getRandomItem();
         System.out.println(countryLanguage.getLanguage());
     }
 }

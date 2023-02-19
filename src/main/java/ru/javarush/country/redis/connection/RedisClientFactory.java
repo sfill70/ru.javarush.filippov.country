@@ -9,16 +9,16 @@ import org.slf4j.LoggerFactory;
 
 public class RedisClientFactory {
     private final RedisClient redisClient;
-    private final Connection connection;
+    private final ConnectionSetting connectionSetting;
     private final String redisURI;
     private static RedisClientFactory instance;
 
     private static final Logger logger = LoggerFactory.getLogger(RedisClientFactory.class);
 
     private RedisClientFactory() {
-        this.connection = new Connection();
-        this.redisURI = getRedisURI(connection.getConnectionHost(), connection.getConnectionPort(),
-                connection.getNumberDb());
+        this.connectionSetting = new ConnectionSetting().getConnectionSetting();
+        this.redisURI = getRedisURI(connectionSetting.getHost(), connectionSetting.getPort(),
+                connectionSetting.getNumberdb());
         this.redisClient = prepareRedisClient();
     }
 
@@ -34,10 +34,9 @@ public class RedisClientFactory {
 
         try (StatefulRedisConnection<String, String> connection = redisClient.connect()) {
             logger.info("\nConnected to Redis\n");
-//            int x = 1/0;
         } catch (Exception e) {
             logger.error("Failed to connect to database - " + e.getMessage());
-            redisClient = RedisClient.create(RedisURI.create(connection.getConnectionHost(), connection.getConnectionPort()));
+            redisClient = RedisClient.create(RedisURI.create(connectionSetting.getHost(), connectionSetting.getPort()));
             try (StatefulRedisConnection<String, String> connection = redisClient.connect()) {
                 logger.info("\nConnected to Redis\n");
             }catch (Exception ex){
@@ -48,7 +47,7 @@ public class RedisClientFactory {
     }
 
     public String getRedisURI(String host, int port, int numberdb) {
-        return "redis://" + connection.getConnectionHost()
-                + ":" + connection.getConnectionPort() + "/" + connection.getNumberDb();
+        return "redis://" + host
+                + ":" + port + "/" + numberdb;
     }
 }

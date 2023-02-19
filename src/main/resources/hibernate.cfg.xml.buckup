@@ -4,6 +4,8 @@
 <hibernate-configuration>
     <session-factory>
         <!-- JDBC Database connection settings -->
+         <!-- Select our SQL dialect -->
+                <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
         <property name="connection.driver_class">com.p6spy.engine.spy.P6SpyDriver</property>
         <property name="connection.url">jdbc:p6spy:mysql://localhost:3310/world?useSSL=false&amp;serverTimezone=UTC
         </property>
@@ -11,8 +13,7 @@
         <property name="connection.password">pass</property>
         <!-- JDBC connection pool settings ... using built-in test pool -->
         <property name="connection.pool_size">10</property>
-        <!-- Select our SQL dialect -->
-        <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
+
         <!-- Echo the SQL to stdout Вывод запросов в консоль -->
         <property name="show_sql">true</property>
         <!-- Set the current session context -->

@@ -1,4 +1,4 @@
-package ru.javarush.country.handler;
+package ru.javarush.country.service;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,11 +10,11 @@ import java.util.List;
 
 import static java.util.Objects.nonNull;
 
-public class CountryHandler {
+public class CountryService {
     private final SessionFactory sessionFactory;
     private final CountryDao countryDao;
 
-    public CountryHandler() {
+    public CountryService() {
         sessionFactory = MySessionFactory.getSessionFactory();
         countryDao = new CountryDao(sessionFactory);
     }

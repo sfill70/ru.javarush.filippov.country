@@ -15,12 +15,10 @@ public abstract class GenericDao<T> {
     private final Class<T> clazz;
     private SessionFactory sessionFactory;
 
-    private int count;
 
     public GenericDao(Class<T> clazz, SessionFactory sessionFactory) {
         this.clazz = clazz;
         this.sessionFactory = sessionFactory;
-        count = 0;
     }
 
     public T getById(final int id) {
@@ -47,9 +45,9 @@ public abstract class GenericDao<T> {
     }
 
     public T getRandomItem() {
+        int count = getTotalCount();
         if (count == 0) {
-            Query<Long> query = getCurrentSession().createQuery("select count (*) from " + clazz.getName(), Long.class);
-            count = query.uniqueResult().intValue();
+           return null;
         }
         T entity = (T) getById(ThreadLocalRandom.current().nextInt(1, count));
         return entity;
@@ -75,7 +73,6 @@ public abstract class GenericDao<T> {
 
     public void delete(final T entity) {
         getCurrentSession().delete(entity);
-        count--;
     }
 
     public void deleteById(final int entityId) {
