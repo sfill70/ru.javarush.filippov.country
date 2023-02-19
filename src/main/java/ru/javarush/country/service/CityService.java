@@ -1,4 +1,4 @@
-package ru.javarush.country.handler;
+package ru.javarush.country.service;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -8,22 +8,20 @@ import ru.javarush.country.entity.City;
 import ru.javarush.country.entity.Country;
 import ru.javarush.country.entity.CountryLanguage;
 import ru.javarush.country.factory.MySessionFactory;
-import ru.javarush.country.redis.handlerRedis.RedisHandler;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import static java.util.Objects.nonNull;
 
-public class CityHandler {
+public class CityService {
     private final SessionFactory sessionFactory;
     private final CityDao cityDao;
-
     private final CountryDao countryDao;
+    private static final int STEP = 500;
 
-    public CityHandler() {
+    public CityService() {
         sessionFactory = MySessionFactory.getSessionFactory();
         cityDao = new CityDao(sessionFactory);
         countryDao = new CountryDao(sessionFactory);
@@ -35,9 +33,8 @@ public class CityHandler {
             session.beginTransaction();
             List<Country> countries = countryDao.getAll();
             int totalCount = cityDao.getTotalCount();
-            int step = 500;
-            for (int i = 0; i < totalCount; i += step) {
-                allCities.addAll(cityDao.getItems(i, step));
+            for (int i = 0; i < totalCount; i += STEP) {
+                allCities.addAll(cityDao.getItems(i, STEP));
             }
             session.getTransaction().commit();
             return allCities;

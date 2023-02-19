@@ -2,12 +2,11 @@ package ru.javarush.country.factory;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.cfg.Environment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.javarush.country.redis.connection.RedisClientFactory;
-
-import java.util.Properties;
+import ru.javarush.country.entity.City;
+import ru.javarush.country.entity.Country;
+import ru.javarush.country.entity.CountryLanguage;
 
 public class MySessionFactory {
     private static MySessionFactory instance;
@@ -15,7 +14,11 @@ public class MySessionFactory {
     private static final Logger logger = LoggerFactory.getLogger(MySessionFactory.class);
 
     private MySessionFactory() {
-        sessionFactory = new Configuration().configure().buildSessionFactory();
+        sessionFactory = new Configuration()
+                .addAnnotatedClass(City.class)
+                .addAnnotatedClass(Country.class)
+                .addAnnotatedClass(CountryLanguage.class)
+                .buildSessionFactory();
     }
 
     public static SessionFactory getSessionFactory() {
