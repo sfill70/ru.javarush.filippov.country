@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 //import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -201,5 +202,52 @@ public class Country {
 
     public void setLanguages(Set<CountryLanguage> languages) {
         this.languages = languages;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Country country = (Country) o;
+
+        if (!Objects.equals(id, country.id)) return false;
+        if (!Objects.equals(code, country.code)) return false;
+        if (!Objects.equals(alternativeCode, country.alternativeCode))
+            return false;
+        if (!Objects.equals(name, country.name)) return false;
+        if (continent != country.continent) return false;
+        if (!Objects.equals(region, country.region)) return false;
+        if (!Objects.equals(surfaceArea, country.surfaceArea)) return false;
+        if (!Objects.equals(indepYear, country.indepYear)) return false;
+        if (!Objects.equals(population, country.population)) return false;
+        if (!Objects.equals(lifeExpectancy, country.lifeExpectancy))
+            return false;
+        if (!Objects.equals(GNP, country.GNP)) return false;
+        if (!Objects.equals(GNPOId, country.GNPOId)) return false;
+        if (!Objects.equals(localName, country.localName)) return false;
+        if (!Objects.equals(governmentForm, country.governmentForm))
+            return false;
+        return Objects.equals(headOfState, country.headOfState);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (code != null ? code.hashCode() : 0);
+        result = 31 * result + (alternativeCode != null ? alternativeCode.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (continent != null ? continent.hashCode() : 0);
+        result = 31 * result + (region != null ? region.hashCode() : 0);
+        result = 31 * result + (surfaceArea != null ? surfaceArea.hashCode() : 0);
+        result = 31 * result + (indepYear != null ? indepYear.hashCode() : 0);
+        result = 31 * result + (population != null ? population.hashCode() : 0);
+        result = 31 * result + (lifeExpectancy != null ? lifeExpectancy.hashCode() : 0);
+        result = 31 * result + (GNP != null ? GNP.hashCode() : 0);
+        result = 31 * result + (GNPOId != null ? GNPOId.hashCode() : 0);
+        result = 31 * result + (localName != null ? localName.hashCode() : 0);
+        result = 31 * result + (governmentForm != null ? governmentForm.hashCode() : 0);
+        result = 31 * result + (headOfState != null ? headOfState.hashCode() : 0);
+        return result;
     }
 }
