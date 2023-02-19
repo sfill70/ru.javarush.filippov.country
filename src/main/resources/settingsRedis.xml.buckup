@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ConnectionSetting class="ru.javarush.country.redis.connection.ConnectionSetting">
-  <host>127.0.0.1</host>
-  <port>8001</port>
-  <numberdb>0</numberdb>
-</ConnectionSetting>
