@@ -1,20 +1,20 @@
 package ru.javarush.country;
 
 import ru.javarush.country.entity.City;
-import ru.javarush.country.service.CityService;
 import ru.javarush.country.redis.serviceRedis.RedisService;
+import ru.javarush.country.service.MySqlService;
 import ru.javarush.country.util.Util;
 
 import java.util.List;
 
 public class Main {
-
-    private final CityService cityService;
     private final RedisService redisService;
 
+    private final MySqlService mySqlService;
+
     public Main() {
-        cityService = new CityService();
         redisService = new RedisService();
+        mySqlService = new MySqlService();
     }
 
     public static void main(String[] args) {
@@ -42,7 +42,7 @@ public class Main {
     }
 
     private List<City> getAllCities() {
-        return cityService.fetchData();
+        return mySqlService.fetchData();
     }
 
     private void pushToRedis(List<City> cityList) {
@@ -50,7 +50,7 @@ public class Main {
     }
 
     private void testMysqlData(List<Integer> ids) {
-        cityService.testMysqlData(ids);
+        mySqlService.testMysqlData(ids);
     }
 
     private void testRedisData(List<Integer> ids) {
@@ -58,11 +58,11 @@ public class Main {
     }
 
     private int getCountCity() {
-        return cityService.getCountCity();
+        return mySqlService.getCountCity();
     }
 
     private void shutdown() {
-        cityService.shutdown();
+        mySqlService.shutdown();
         redisService.shutdown();
     }
 }

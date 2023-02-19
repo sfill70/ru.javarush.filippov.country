@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import ru.javarush.country.dao.CityDao;
 import ru.javarush.country.dao.CountryDao;
+import ru.javarush.country.dao.CountryLanguageDao;
 import ru.javarush.country.entity.City;
 import ru.javarush.country.entity.Country;
 import ru.javarush.country.entity.CountryLanguage;
@@ -15,14 +16,16 @@ import java.util.Set;
 
 import static java.util.Objects.nonNull;
 
-public class CityService {
+public class MySqlService {
     private final SessionFactory sessionFactory;
+    private final CountryLanguageDao countryLanguageDao;
     private final CityDao cityDao;
     private final CountryDao countryDao;
     private static final int STEP = 500;
 
-    public CityService() {
+    public MySqlService() {
         sessionFactory = MySessionFactory.getSessionFactory();
+        countryLanguageDao = new CountryLanguageDao(sessionFactory);
         cityDao = new CityDao(sessionFactory);
         countryDao = new CountryDao(sessionFactory);
     }
@@ -62,10 +65,29 @@ public class CityService {
         }
     }
 
+    public List<Country> getAll() {
+        List<Country> countries;
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            countries = countryDao.getAll();
+            session.getTransaction().commit();
+            return countries;
+        }
+    }
+
+    public List<CountryLanguage> getCountries(int offset, int count) {
+        List<CountryLanguage> countryLanguages;
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            countryLanguages = countryLanguageDao.getItems(offset,count);
+            session.getTransaction().commit();
+            return countryLanguages;
+        }
+    }
+
     public void shutdown() {
         if (nonNull(sessionFactory)) {
             sessionFactory.close();
         }
     }
-
 }
