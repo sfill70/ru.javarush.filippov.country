@@ -1,7 +1,7 @@
 package ru.javarush.country.entity;
 
 
-import jakarta.persistence.*;;
+import jakarta.persistence.*;;import java.util.Objects;
 
 @Entity
 @Table(schema = "world", name = "city")
@@ -63,5 +63,27 @@ public class City {
 
     public void setPopulation(Integer population) {
         this.population = population;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        City city = (City) o;
+
+        if (!Objects.equals(id, city.id)) return false;
+        if (!Objects.equals(name, city.name)) return false;
+        if (!Objects.equals(district, city.district)) return false;
+        return Objects.equals(population, city.population);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (district != null ? district.hashCode() : 0);
+        result = 31 * result + (population != null ? population.hashCode() : 0);
+        return result;
     }
 }
